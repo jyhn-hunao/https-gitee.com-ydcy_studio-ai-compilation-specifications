@@ -8,7 +8,7 @@ Specifications and standards for AI-assisted coding. **This repository is the si
 
 | Path | Content |
 | --- | --- |
-| `specs/个人编码与AI协作规范.md` | Main body (tech-stack agnostic): task sizing, **Chinese pseudo-code as a reviewable deliverable**, coding rules, 8 required deliverables, acceptance checklist, prompt templates, anti-patterns |
+| `specs/个人编码与AI协作规范.md` | Main body (tech-stack agnostic): task sizing, **Chinese pseudo-code as numbered comments inside the implementation**, coding rules, 8 required deliverables, acceptance checklist, prompt templates, anti-patterns |
 | `specs/附录-后端-Java-SpringBoot.md` | Backend (Java / Spring Boot) appendix |
 | `specs/附录-前端-Vue3.md` | Frontend (Vue 3) appendix |
 | `specs/附录-算法-Python-FastAPI.md` | Algorithm service (Python / FastAPI) appendix |
