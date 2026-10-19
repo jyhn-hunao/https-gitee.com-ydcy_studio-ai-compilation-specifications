@@ -1,6 +1,6 @@
 ﻿---
 标题: 个人编码与 AI 协作规范
-版本: v1.3
+版本: v1.4
 适用范围: 任何项目 / 任何技术栈 / 任何仓库 / 任何机器上的 AI 会话
 本仓: https://gitee.com/ydcy_studio/ai-compilation-specifications
 安装位置: ~/.dsh/standards/（即本仓的克隆目录；正文在 specs/ 子目录下）
