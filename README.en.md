@@ -13,6 +13,7 @@ Specifications and standards for AI-assisted coding. **This repository is the si
 | `specs/附录-前端-Vue3.md` | Frontend (Vue 3) appendix |
 | `specs/附录-算法-Python-FastAPI.md` | Algorithm service (Python / FastAPI) appendix |
 | `specs/附录-数据-SQL与数据库.md` | SQL / database appendix |
+| `specs/附录-文档记忆体系.md` | General collaboration appendix (tech-stack agnostic): `docs/` growth memory directories, classification, naming, index maintenance, plus hard constraints for handoff / SQL log / test-method registry |
 | `install/agents-pointer.md` | Pointer block to merge into `~/.dsh/AGENTS.md` (delimited by `BEGIN/END` markers) |
 | `install/iron-rules.txt` | Plain-text iron rules for an AI session to store in persistent memory |
 

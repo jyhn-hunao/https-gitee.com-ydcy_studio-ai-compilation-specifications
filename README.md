@@ -11,6 +11,7 @@
 | `specs/附录-前端-Vue3.md` | 前端（Vue 3）技术栈附录 |
 | `specs/附录-算法-Python-FastAPI.md` | 算法服务（Python/FastAPI）技术栈附录 |
 | `specs/附录-数据-SQL与数据库.md` | 数据、SQL 与数据库附录 |
+| `specs/附录-文档记忆体系.md` | **通用协作附录（与技术栈无关）**：`docs/` 增长型记忆目录、分类判定、命名、索引维护，以及 handoff / SQL Log / 测试方法登记三处硬约束 |
 | `install/agents-pointer.md` | 并入 `~/.dsh/AGENTS.md` 的入口指针段（带 `BEGIN/END` 标记块） |
 | `install/iron-rules.txt` | 常驻铁律纯文本，供 AI 会话写入常驻记忆 |
 
