@@ -1,8 +1,9 @@
 ﻿<!-- BEGIN personal-coding-standards -->
 # 个人编码与 AI 协作规范（跨项目通用入口）
 
-- 规范本体：`~/.dsh/standards/`（git 仓 `https://gitee.com/ydcy_studio/ai-compilation-specifications` 的克隆目录；正文在 `specs/个人编码与AI协作规范.md`，同目录另有 4 份技术栈附录：Java/Spring Boot、Vue3、Python/FastAPI、SQL 与数据库，以及 1 份通用协作附录：文档记忆体系 `附录-文档记忆体系.md`）。
+- 规范本体：`~/.dsh/standards/`（git 仓 `https://gitee.com/ydcy_studio/ai-compilation-specifications` 的克隆目录；正文在 `specs/个人编码与AI协作规范.md`，同目录另有 4 份技术栈附录：Java/Spring Boot、Vue3、Python/FastAPI、SQL 与数据库，以及 2 份通用协作附录：文档记忆体系 `附录-文档记忆体系.md`、提交准则 `附录-提交准则.md`）。
 - 适用于**任何项目、任何技术栈、任何仓库**。若写代码任务开始时上述规范未进上下文，请先读取正文再动手。
 - 优先级：**铁律层任何项目不得豁免**——任务分级与 dsh-graph 路由、中文伪代码（以 `// 1. xxx` 编号注释直接写进实现代码，标关键步骤的业务语义，不逐行注释、不单独出文档）、先思路后代码、数据来源必须可证明、不静默兜底、交付必附缺陷/边界/验证用例；技术栈、目录、命名、构建约定服从所在仓库。
+- 提交纪律：一个提交 = 一个可独立审查/验证/回滚的逻辑单元；按逻辑单元提交，不按工具动作/每次修改提交，同一单元未推送前用 amend/squash 收敛；非生成文件 > 12 个或变更 > 400 行先拆分（理想 ≤ 8 个 / ≤ 300 行）；消息写 `type(scope): 中文摘要`，禁止 `1`/`update`/`fix bug`；默认只落本地，push 由人确认。详见 `附录-提交准则.md`。
 - dsh-graph：当前会话实际提供 `graph_*` 时，S 级开发任务不强制建目标，M/L 级必须创建或复用 graph 目标并按流程执行；用户指定既有目标时禁止旁路，执行前由当前任务会话接管 supervisor。规则、规范、协作机制等文字治理任务可由主管主会话直接实施，不强制派执行子代理；该例外不适用于常规功能开发。
 <!-- END personal-coding-standards -->
