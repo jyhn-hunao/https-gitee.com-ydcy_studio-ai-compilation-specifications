@@ -188,6 +188,7 @@ pwsh -File ~/.dsh/standards/install/verify.ps1     # 全绿才算生效
 
 ## 更新
 
+- **push 授权（本仓项目层例外）**：本仓已获用户常驻授权，AI 可直接 `git push origin master`，不必每次确认；push 前仍按《附录-提交准则》自检（单一意图、粒度上限、消息格式、验证结果），推送失败先 `fetch` 看远端，用 rebase 前移，不 force push。这条只适用于本仓，不改变通用铁律「默认只落本地、push 由人确认」。
 - 本机的装机目录 `~/.dsh/standards/` **就是这个仓的 git 克隆**，直接在里面改 `specs/` 下的文档 → `git commit` → `git push` 即可，不必另建副本（两份会分叉）。
 - 其他机器：`git -C ~/.dsh/standards pull`。
 - 提交身份使用 **repo-local** 配置（`A.L <2310468741@qq.com>`），不改动任何机器的全局 git 配置。
