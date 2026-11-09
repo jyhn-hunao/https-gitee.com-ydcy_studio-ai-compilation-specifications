@@ -24,4 +24,4 @@
 
 配套一条位置信息（便于其他机器找到正文）：
 
-个人编码规范正文在 `~/.dsh/standards/specs/个人编码与AI协作规范.md`（git 仓 ai-compilation-specifications 的克隆目录），另在 `~/.dsh/AGENTS.md` 留有入口指针。
+个人编码规范正文在 `~/.dsh/standards/specs/个人编码与AI协作规范.md`（git 仓 ai-compilation-specifications 的克隆目录），个人习惯在 `~/.dsh/standards/specs/个人偏好.md`（强度低于本铁律、可被项目规则覆盖），另在 `~/.dsh/AGENTS.md` 留有入口指针。写完用 `powershell -File ~/.dsh/standards/install/verify.ps1` 验证是否真的进了常驻记忆。
