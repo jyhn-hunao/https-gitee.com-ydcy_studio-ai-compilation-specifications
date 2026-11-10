@@ -42,7 +42,7 @@ powershell -File ~/.dsh/standards/install/install.ps1    # 首次：目录不存
 powershell -File ~/.dsh/standards/install/verify.ps1     # 安装是否真的生效
 ```
 
-`install.ps1` 做三件事：落地规范本体（clone 或 `-Update` 快进）→ 把入口标记块并入宿主入口文件（块外内容一字不动，重复执行不产生 diff）→ 打印常驻记忆的写入指引。它**不能**替 AI 写记忆，所以第 3 步仍需 AI 会话执行，但 `verify.ps1` 会去记忆存储里查铁律指纹，把"漏了没生效"从静默失败变成红色 FAIL。
+`install.ps1` 做三件事：落地规范本体（clone 或 `-Update` 快进）→ 把入口标记块并入宿主入口文件（块外内容一字不动，重复执行不产生 diff）→ 打印常驻记忆的写入指引。它**不能**替 AI 写记忆，所以第 3 步仍需 AI 会话执行，但 `verify.ps1` 会去记忆存储里查铁律锚点，把"漏了没生效"从静默失败变成红色 FAIL。`verify.ps1` 分五段（standards / entry / memory / project / drift）共 29 项，可用 `-Segment` 只跑相关段、用 `-Json` 输出机器可读结果。
 
 手动等价步骤（脚本不可用时）：
 
@@ -66,7 +66,7 @@ powershell -File ~/.dsh/standards/install/verify.ps1     # 安装是否真的生
 2. 再建项目规则主文件（目录归属、构建/验证命令、技术栈约定、禁止项、交付要求、已知风险）；
 3. 随后按顺序落地提交准则、文档记忆索引、配置样例与规则测试。
 
-**每个项目值都必须能指到目标仓库的文件；无法证明的项列入待确认并问人，AI 不得自主决定。** 完整 0–8 步、必建文件清单与自检表见 README「迁移到具体项目：AI 执行顺序」，填写模板见 `~/.dsh/standards/install/project-spec-checklist.md`，落地后跑 `~/.dsh/standards/install/check-project.ps1 -RepoPath <目标仓>` 复核。
+**每个项目值都必须能指到目标仓库的文件；无法证明的项列入待确认并问人，AI 不得自主决定。** 完整 0–8 步、必建文件清单与自检表见 README「迁移到具体项目：AI 执行顺序」，填写模板见 `~/.dsh/standards/install/project-spec-checklist.md`，落地后跑 `~/.dsh/standards/install/verify.ps1 -Segment project,drift -Project <目标仓>` 复核。
 
 ---
 

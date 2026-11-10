@@ -88,7 +88,7 @@ Execution rule: steps 0–1 are read-only; from step 2, show the output of each 
 
 Use the fill-in template `install/project-spec-checklist.md`: evidence table, migration matrix (`landed / not applicable (reason) / open (question id)`), open-question list, verification results and conclusion. Any open item must be asked, not assumed.
 
-Machine check afterwards: `pwsh -File ~/.dsh/standards/install/check-project.ps1 -RepoPath <target repo>` covers the mechanical parts (rule entry, placeholders, three-state matrix, open questions, spec-baseline drift, `.env` tracked, rule test). It can only disprove; human judgement still decides whether the evidence is real.
+Machine check afterwards: `powershell -File ~/.dsh/standards/install/verify.ps1 -Segment project,drift -Project <target repo>` covers the mechanical parts (rule entry, placeholders and secrets, three-state matrix, open questions, evidence on landed rows, spec-baseline drift, `.env` tracked, rule test). It can only disprove; checks it cannot decide are reported as `UNVERIFIABLE` instead of being skipped.
 
 ### Common omissions
 

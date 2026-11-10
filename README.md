@@ -15,8 +15,8 @@
 | `specs/附录-提交准则.md` | **通用协作附录（与技术栈无关）**：提交单元、粒度上下限（文件/行数/审查时长）、拆分策略、提交信息、审查视角与 AI 提交纪律 |
 | `specs/个人偏好.md` | **用户层附录**：跨项目恒定、但强度低于铁律的个人习惯（语言、文档风格、脚本选型）；项目层可覆盖 |
 | `install/install.ps1` | **安装脚本**：落地规范本体 → 合并入口标记块（块外不覆盖）→ 打印常驻记忆指引；可重复执行 |
-| `install/verify.ps1` | **安装校验**：本体是否同一仓、入口标记块是否完整、是否超字节预算、常驻记忆里有没有铁律指纹 |
-| `install/check-project.ps1` | **项目落地检查**：规则入口、占位符、迁移矩阵三态、待确认清单、规范基线漂移、`.env` 入库、规则测试 |
+| `install/verify.ps1` | **自检（5 段 29 项）**：本体 / 入口指针 / 常驻记忆 / 项目落地 / 漂移；三态输出（PASS·FAIL·UNVERIFIABLE），支持 `-Segment` 分段与 `-Json` |
+| `install/check-project.ps1` | **兼容入口**：等价于 `verify.ps1 -Segment project,drift -Project <目标仓>` |
 | `install/hosts/README.md` | **多宿主入口映射**：同一份正文在 DSH / Claude Code / Cursor / Codex 上的落位与包装差异 |
 | `install/agents-pointer.md` | 并入宿主入口文件的指针段（带 `BEGIN/END` 标记块） |
 | `install/iron-rules.txt` | 常驻铁律纯文本，供 AI 会话写入常驻记忆 |
@@ -64,12 +64,32 @@ pwsh -File ~/.dsh/standards/install/verify.ps1     # 全绿才算生效
 
 ### 校验结果怎么读
 
+`verify.ps1` 分五段共 29 项，三态输出：
+
+| 段 | 项 | 回答的问题 |
+| --- | --- | --- |
+| `standards` | 1–6 | 规范本体在不在、是不是同一个仓、有没有落后于远端 |
+| `entry` | 7–11 | 入口指针在不在、标记块完不完整、块外原有规则有没有被吃掉 |
+| `memory` | 12–15 | 铁律是否真的进了常驻记忆（还是只写了一份会被覆盖的投影） |
+| `project` | 16–26 | 目标仓落地有没有偏移：占位符、三态矩阵、待确认、证据、密钥、基线 |
+| `drift` | 27–29 | 项目规范是否过期、个人偏好层是否被引用、附录示例是否被照抄 |
+
 | 结果 | 含义 | 处理 |
 | --- | --- | --- |
-| `FAIL 常驻记忆` | 记忆存储里没有铁律指纹，等于每轮注入的底线不存在 | 把 `install/iron-rules.txt` 交给 AI 会话写入后重跑 |
-| `WARN 入口指针` | 标记块与模板不一致：模板升级了没重跑安装，或你本地改过 | 重跑 `install.ps1`；有意的本地修改可忽略 |
-| `WARN 字节预算` | 入口文件接近/超过宿主预算，可能被静默挤掉 | 正文留在规范本体，入口只放指针 |
-| `WARN 规范本体` | origin 不是预期上游 | 确认是不是同一个仓，不是就换目录 |
+| `PASS` | 通过 | — |
+| `FAIL` | 必须修，通常意味着规范实际没生效 | 按提示行修复；有 FAIL 时退出码为 1 |
+| `WARN` | 建议处理（落后远端、工作区变脏、接近字节预算、缺规范基线） | 不阻断，按提示处理 |
+| `UNVERIFIABLE` | 脚本无法判定，必须人工确认——不静默跳过 | 按提示人工核对，不阻断 |
+
+```powershell
+powershell -File ~/.dsh/standards/install/verify.ps1                                   # 本机三段
+powershell -File ~/.dsh/standards/install/verify.ps1 -Segment project,drift -Project <目标仓>
+powershell -File ~/.dsh/standards/install/verify.ps1 -Json                             # 机器可读，接 CI/报告
+```
+
+> 严重度取舍：`落后于远端`、`工作区变脏`、`缺规范基线` 判 WARN 而不是 FAIL——它们可自动恢复，且作者机在修订规范时会正常变脏。真正判 FAIL 的是"规范没生效或规则被破坏"：本体缺失、入口标记块损坏、铁律没进记忆、矩阵造假、密钥入库。
+
+`check-project.ps1 -RepoPath <目标仓>` 保留为兼容入口，等价于 `verify.ps1 -Segment project,drift`。
 
 换宿主（Claude Code / Cursor / Codex）用 `-HostType` 指定，落位与包装差异见 `install/hosts/README.md`；**正文仍只有一份**，不要另存副本。
 
@@ -167,7 +187,7 @@ pwsh -File ~/.dsh/standards/install/verify.ps1     # 全绿才算生效
 
 交付给用户的必须包含：**创建/修改的文件清单、迁移矩阵、待确认清单、验证命令与结果、与通用规范的差异说明**（只允许更严；放宽必须给理由并经确认）。
 
-> **机器版复核**：`pwsh -File ~/.dsh/standards/install/check-project.ps1 -RepoPath <目标仓>` 自动判定其中可机器判定的部分——规则入口存在、无 TODO/占位符、迁移矩阵三态齐全、待确认项落到清单、规范基线 commit 是否落后于本机规范、`.env` 是否入库、`.env.example` 与 `docs/MEMORY_INDEX.md` 是否缺失、（可选）规则测试是否通过。它只能证伪，不能替你判断"证据是否成立、差异是否只更严"。
+> **机器版复核**：`powershell -File ~/.dsh/standards/install/verify.ps1 -Segment project,drift -Project <目标仓>` 自动判定其中可机器判定的部分——规则入口存在、无 TODO/占位符/密钥特征、迁移矩阵三态齐全、待确认项落到清单、已落地行是否有证据、规范基线 commit 是否落后于本机规范、`.env` 是否入库、`.env.example` 与 `docs/MEMORY_INDEX.md` 是否缺失、（可选）规则测试是否通过。它只能证伪，不能替你判断"证据是否成立、差异是否只更严"，判不了的项会明确标 `UNVERIFIABLE` 而不是静默放过。
 
 ### 常见遗漏（对照检查）
 
@@ -198,6 +218,6 @@ pwsh -File ~/.dsh/standards/install/verify.ps1     # 全绿才算生效
 - 入口指针**默认按 DSH 宿主**写（读 `~/.dsh/AGENTS.md`）。其他宿主已给映射与生成方式（`install/hosts/README.md`、`install.ps1 -HostType claude|cursor|codex`），但**常驻记忆的检查只覆盖 DSH 的存储**：`verify.ps1` 在 Claude Code / Cursor 上只能给 WARN，无法确认铁律是否每轮注入。
 - **常驻记忆必须经记忆工具写入**：`USER.md` / `MEMORY.md` / `memories.json` 里，Markdown 是生成投影，直接拷文件会在下一次写入时被覆盖。
 - `~/.dsh/AGENTS.md` 会被宿主的会话规则字节预算挤掉（实测：项目规则文件 82KB 时，用户级规则整个没进上下文），所以铁律层必须落在常驻记忆里。
-- `verify.ps1` 判断"是否生效"靠铁律指纹，不靠调用记忆工具的返回值；指纹被改写（比如大幅压缩铁律）时可能误报，改 `install/iron-rules.txt` 后请同步 `verify.ps1` 里的 `$fingerprints`。
+- `verify.ps1` 判断"是否生效"靠 10 条铁律锚点（命中率 < 80% 即 FAIL），不靠调用记忆工具的返回值；大幅改写 `install/iron-rules.txt` 的关键词后，请同步脚本里的 `$anchorList`，否则会误报。
 - 安装/校验脚本只提供 PowerShell 版（Windows PowerShell 5.1+ 与 pwsh 7+，三平台通用），没有 bash 版。
 - 附录中标「示例」的条目来自具体项目（如禁用某个 CSS 属性），进入新仓库前先确认该仓是否同样要求，不要默认套用——迁移清单第 4 节已把它列为必问项。
