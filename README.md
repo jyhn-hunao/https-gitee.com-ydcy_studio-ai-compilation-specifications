@@ -1,4 +1,4 @@
-﻿# AI-CompilationSpecifications
+# AI-CompilationSpecifications
 
 用于记录 AI 编写代码的规范文件。**本仓是规范本体（单一事实源）**——换机器、换项目都从这里取，不在别处再存一份。
 
@@ -14,6 +14,7 @@
 | `specs/附录-文档记忆体系.md` | **通用协作附录（与技术栈无关）**：`docs/` 增长型记忆目录、分类判定、命名、索引维护，以及 handoff / SQL Log / 测试方法登记三处硬约束 |
 | `specs/附录-提交准则.md` | **通用协作附录（与技术栈无关）**：提交单元、粒度上下限（文件/行数/审查时长）、拆分策略、提交信息、审查视角与 AI 提交纪律 |
 | `specs/个人偏好.md` | **用户层附录**：跨项目恒定、但强度低于铁律的个人习惯（语言、文档风格、脚本选型）；项目层可覆盖 |
+| `specs/用户画像.md` | **用户层附录**：身份、工作背景与协作习惯；事实层，只给铁律章节指针，不复制条文 |
 | `install/install.ps1` | **安装脚本**：落地规范本体 → 合并入口标记块（块外不覆盖）→ 打印常驻记忆指引；可重复执行 |
 | `install/verify.ps1` | **自检（5 段 29 项）**：本体 / 入口指针 / 常驻记忆 / 项目落地 / 漂移；三态输出（PASS·FAIL·UNVERIFIABLE），支持 `-Segment` 分段与 `-Json` |
 | `install/check-project.ps1` | **兼容入口**：等价于 `verify.ps1 -Segment project,drift -Project <目标仓>` |

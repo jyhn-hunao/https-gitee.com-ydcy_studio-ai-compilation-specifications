@@ -1,7 +1,7 @@
-﻿<!-- BEGIN personal-coding-standards -->
+<!-- BEGIN personal-coding-standards -->
 # 个人编码与 AI 协作规范（跨项目通用入口）
 
-- 规范本体：`~/.dsh/standards/`（git 仓 `https://gitee.com/ydcy_studio/ai-compilation-specifications` 的克隆目录；正文在 `specs/个人编码与AI协作规范.md`，同目录另有 4 份技术栈附录：Java/Spring Boot、Vue3、Python/FastAPI、SQL 与数据库，以及 2 份通用协作附录：文档记忆体系 `附录-文档记忆体系.md`、提交准则 `附录-提交准则.md`）。
+- 规范本体：`~/.dsh/standards/`（git 仓 `https://gitee.com/ydcy_studio/ai-compilation-specifications` 的克隆目录；正文在 `specs/个人编码与AI协作规范.md`，同目录另有 4 份技术栈附录：Java/Spring Boot、Vue3、Python/FastAPI、SQL 与数据库，以及 2 份通用协作附录：文档记忆体系 `附录-文档记忆体系.md`、提交准则 `附录-提交准则.md`；用户层见 `specs/个人偏好.md` 与 `specs/用户画像.md`）。
 - 适用于**任何项目、任何技术栈、任何仓库**。若写代码任务开始时上述规范未进上下文，请先读取正文再动手。
 - 优先级：**铁律层任何项目不得豁免**——任务分级与 dsh-graph 路由、中文伪代码（以 `// 1. xxx` 编号注释直接写进实现代码，标关键步骤的业务语义，不逐行注释、不单独出文档）、先思路后代码、数据来源必须可证明、不静默兜底、交付必附缺陷/边界/验证用例；技术栈、目录、命名、构建约定服从所在仓库。冲突裁决顺序：用户当轮指令 > 铁律层 > 项目层 > 个人偏好层（`specs/个人偏好.md`，只提供默认值）> 技术栈附录默认值。
 - 自检：装了规范不代表生效，`powershell -File ~/.dsh/standards/install/verify.ps1`（pwsh 7 同理）分五段查本体/入口/常驻记忆/项目落地/漂移，`-Segment` 可只跑一段、`-Json` 出机器可读结果；项目侧用 `-Segment project,drift -Project <目标仓>` 复核。
